@@ -256,6 +256,6 @@ upx -o [packed executable name] [original executable name]
 
 ### DIE
 
-* Load file -> Strings -> Search
+* Load file -> Signatures -> Search
   * searches for crypto functions
   * crypto functions don't necessarily mean something harmful- could be using private keys (ex. PuTTY) but could be an indicator of packing
