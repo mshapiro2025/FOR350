@@ -4,3 +4,4 @@
 * [Malware Analysis](malware-analysis.md)
 * [PE Files](pe-files.md)
 * [Managed Code (.NET)](managed-code-.net.md)
+* [Dynamic Analysis](dynamic-analysis.md)
