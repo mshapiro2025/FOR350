@@ -35,6 +35,7 @@
 * DOS header and stub are legacy, but required
 * NT header information (offset, size allocated, value, and description for each) has:
   * machine
+    * Intel 386 is 32-bit
   * number of sections
   * timestamp
     * Unix big endian
