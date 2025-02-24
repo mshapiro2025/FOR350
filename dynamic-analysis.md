@@ -71,3 +71,22 @@
   * can be used to exclude all events before a starting point
 * can right click -> Jump To will open the file in File Explorer
 * RegCreateKey, RegSetValue useful for looking at registry access and modification
+
+## Lab Notes: Noriben and RegShot
+
+* Noriben is a Python application that runs an executable alongside ProcMon and automatically applies filters
+  * needs Python installed
+
+```
+# ADMIN COMMAND PROMPT
+python Noriben.py --cmd C:\[directory for sample]
+# once the sample has finished running, hit CTRL+C ONCE
+```
+
+* RegShot focuses on registry and file system activity
+  * run before running malware- takes snapshot
+  * run malware -> run RegShot again and take another snapshot
+  * does a comparison between the snapshots
+  * when setting up: enable Scan dir1 for C:\ and make output path the folder for the lab, then hit 1st shot -> Shot and save
+  * don't run ProcMon and RegShot at the same time
+  * once both shots have been taken, can use Compare -> Compare and output
