@@ -76,6 +76,7 @@
 
 * Noriben is a Python application that runs an executable alongside ProcMon and automatically applies filters
   * needs Python installed
+  * if you can't run the EXE with Noriben, you can pass a PML (ProcMon Log) file instead with -p
 
 ```
 # ADMIN COMMAND PROMPT
