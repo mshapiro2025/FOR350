@@ -162,7 +162,8 @@
 
 * segmentation and controls
   * traffic filtering
-* ...
+* network services
+* proxies
 
 ### Access to Systems
 
