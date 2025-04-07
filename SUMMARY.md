@@ -6,3 +6,5 @@
 * [Managed Code (.NET)](managed-code-.net.md)
 * [Dynamic Analysis](dynamic-analysis.md)
 * [Malware Techniques](malware-techniques.md)
+* [Ransomware](ransomware.md)
+* [Incident Response](incident-response.md)
