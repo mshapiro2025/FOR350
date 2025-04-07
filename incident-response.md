@@ -178,3 +178,30 @@
 * reporting protocol and facilities
 * establish point of contact for law enforcement agencies
 * ongoing training and knowledge transfer between incident handlers
+
+## Kape
+
+<figure><img src=".gitbook/assets/{9CB0AFCE-CE99-4DB8-ACD7-14D7DAEEC670}.png" alt=""><figcaption></figcaption></figure>
+
+* info:
+  * kape vs. gcape: gcape is GUI version
+  * Eric Zimmerman tool
+  * can run from a USB
+  * Sync with GitHub button in gkape will sync targets and modules with latest versions
+  * used for targeted acquisition (you know what you're looking for)
+* targets: where to acquire evidence from
+  * targets are stored in \[kape directory]\Targets
+    * .tkape files
+    * can see where targets are located within files (what artifacts are where within the category of the tkape file, ex. Discord.tkape shows where Discord cache and local storage files are stored)
+    * Windows: Windows artifacts
+    * Apps: application artifacts
+    * Compound: a set of targets stored in one .tkape file
+      * ex. event logs, file system, evidence of execution, and more
+      * points to other .tkape files
+* container: where the output will be stored
+  * if none is selected, the files will be stored just as they were obtained
+* modules: uses existing tools and applies them to the acquired evidence
+  * if source isn't defined, it will pull from the target destination (they should always be the same)
+  * Eric Zimmerman parsers are under !EZParser
+  * can output as CSV
+  * select "Ignore FTK Warnings"
