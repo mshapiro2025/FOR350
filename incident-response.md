@@ -205,3 +205,5 @@
   * Eric Zimmerman parsers are under !EZParser
   * can output as CSV
   * select "Ignore FTK Warnings"
+  * .mkape files
+    * one for each tool- where to find the tool (should exist in \[kape directory]\Modules\bin) and what arguments it takes
