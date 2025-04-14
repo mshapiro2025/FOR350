@@ -202,3 +202,11 @@ rule check_imphash
 // must be lowercase
 // not an ideal method- must calculate the imphash of each file targeted
 ```
+
+## Additional Notes
+
+* can redirect errored output (ex. error scanning) with:
+
+```
+[command] 2> nul
+```
