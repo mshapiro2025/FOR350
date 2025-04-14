@@ -4,6 +4,8 @@
 
 ### IOCs
 
+* indicator of compromise
+  * specific criteria that can be used to distinguish whether or not a machine is compromised
 * examples of IOCs
   * processes created
   * path of files running processes
@@ -15,13 +17,25 @@
   * hash
   * DNS queries
   * IP addresses
+* types of IOCs
+  * OpenIOC (Mandiant)
+  * Yara
+  * threat intel
+    * Structured Threat Information Expression (CTIX)
+    * Trusted Automated Exchange of Intelligence Information (TAXII)
 * one of these on their own is not usually enough for accurate rules/threat hunting
 
 ### Yara
 
 * text-based language to define a signature for malicious or suspicious processes or files
+* available on Windows, Linux, and Mac
+* extensible via Python
+* limited to scanning executables or processes
+  * file header scanning (see example) can be a workaround for this
 * yara \[options] \[rules file] \[target]
   * target can be file, folder, or running process
+
+{% embed url="https://yara.readthedocs.io/en/v3.8.1/" %}
 
 ### Yara Rules
 
@@ -37,6 +51,8 @@
       * $\[variable name] = {\[variable value]} / "\[variable value]"
         * defining a string in hex with {} means you don't have to worry about finding a match with ascii, base64, etc.
       * ? is a wildcard- can be used as a nibble in a hex character (ex. 0?, ?0, ??)
+      * nocase means not case-sensitive
+      * ascii means looking for words made of ASCII letters, wide means each character is 2 bytes
     * condition:
       * boolean conditions to search for certain equivalencies
       * $\[variable name] or $\[variable name 2]
@@ -48,10 +64,41 @@
   * or
   * boolean/arithmetic (! >= etc.)
 
+### Examples
+
+#### Example: Sample IOC
+
+```
+rule silent_banker : injector, ransomware
+{
+    meta:
+            description = "example"
+            threat_level = 3
+            in_the_wild = true
+    strings: 
+            $a = {6A 40 68 ?? 30 00 00 6? 14 8D 91}
+            $b = {8D 4D B0 2B C1 83 C0 27 99 6A 4E 59 F7 F9}
+            $c = "UVODDFRYSIHLNWPEJXQZAKCBGMT"
+    condition:
+            ($a or $b) and $c
+}
+```
+
 #### Example: Demo 1
 
 ```
+// this will always be true, so it will always alert
 rule demo1
+{
+    condition:
+        true
+}
+```
+
+#### Example: Strings
+
+```
+rule demo2
 {
     strings:
         $a = "_AVIRA_"
@@ -62,20 +109,21 @@ rule demo1
 }
 ```
 
-#### Example: Demo 2
+#### Example: File Size
 
 ```
-rule demo2
+rule demo3
 {
     condition:
         filesize == 53920
 }
+// can add MB after to change size to from bytes to megabytes
 ```
 
-#### Example: Demo 3
+#### Example: File Headers
 
 ```
-rule demo3
+rule demo4
 {
     strings: 
         $s = "%PDF-"
@@ -90,11 +138,12 @@ rule demo3
 rule xor 
 {
     strings:
-        $xor_string = "This program cannot" xor
+        $xor_string = "This program cannot" xor base64
     condition:
         $xor_string
 }
-# used to search for strings with a single byte XOR applied
+// used to search for strings with a single byte XOR applied
+// will take a while
 ```
 
 #### Example: PE Characteristics
@@ -107,8 +156,8 @@ rule upxpacked
     (pe.sections[0].name == ".UPX0") and
     (pe.number_of_sections >= 4)
 }
-# sections is an array- we are looking at section 0 in the array (the first section)
-# indicates UPX-packed malware
+// "sections" is an array- we are looking at section 0 in the array (the first section)
+// indicates UPX-packed malware
 ```
 
 #### Example: PE Imports
@@ -117,8 +166,9 @@ rule upxpacked
 import "pe"
 rule peimports
 {
-    pe.imports("kernel32.dll", "DeleteFileA") and
-    pe.imports("kernel32.dll", "WriteFile")
+    condition:
+        pe.imports("kernel32.dll", "DeleteFileA") and
+        pe.imports("kernel32.dll", "WriteFile")
 }
 ```
 
@@ -133,7 +183,8 @@ rule entropy
         (math.entropy(0, filesize) >= 6.5)
     )
 }
-# can calculate entropy for a section by replacing the 0 and filesize with the beginning and end locations of your section
+// first parameter is starting byte, second parameter is ending byte
+// can calculate entropy for a section by replacing the 0 and filesize with the beginning and end locations of your section
 ```
 
 #### Example: ImpHash
@@ -147,4 +198,6 @@ rule check_imphash
         pe.imphash == "[file hash]"
     )
 }
+// must be lowercase
+// not an ideal method- must calculate the imphash of each file targeted
 ```
