@@ -8,3 +8,4 @@
 * [Malware Techniques](malware-techniques.md)
 * [Ransomware](ransomware.md)
 * [Incident Response](incident-response.md)
+* [Indicators of Compromise](indicators-of-compromise.md)
