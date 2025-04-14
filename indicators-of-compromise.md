@@ -53,6 +53,7 @@
       * ? is a wildcard- can be used as a nibble in a hex character (ex. 0?, ?0, ??)
       * nocase means not case-sensitive
       * ascii means looking for words made of ASCII letters, wide means each character is 2 bytes
+      * unicode strings (marked with U in DIE) must be marked as wide in the rule
     * condition:
       * boolean conditions to search for certain equivalencies
       * $\[variable name] or $\[variable name 2]
