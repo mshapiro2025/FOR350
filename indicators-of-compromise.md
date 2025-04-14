@@ -34,6 +34,7 @@
   * file header scanning (see example) can be a workaround for this
 * yara \[options] \[rules file] \[target]
   * target can be file, folder, or running process
+* receiving the "could not open file" error occurs because the file is already open
 
 {% embed url="https://yara.readthedocs.io/en/v3.8.1/" %}
 
