@@ -211,3 +211,10 @@ rule check_imphash
 ```
 [command] 2> nul
 ```
+
+* if searching for a file signature via the following method, the file signature must be reversed (little endian):
+  * the example is the EXE file header, which normally appears as 4D5A
+
+```
+(uint16(0) -- 0x5A4D)
+```
